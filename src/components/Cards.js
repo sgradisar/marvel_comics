@@ -1,7 +1,7 @@
 import React from "react";
 import Card from "./Card";
 
-const Cards = ({ data, selectedFormat }) => {
+const Cards = ({ data, selectedFormat, lastItemObserver }) => {
 	return (
 		<div className="cards">
 			{data
@@ -14,6 +14,7 @@ const Cards = ({ data, selectedFormat }) => {
 						item={item}
 						index={index}
 						dataLength={data.length}
+						lastItemObserver={lastItemObserver}
 					/>
 				))}
 		</div>
