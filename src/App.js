@@ -3,6 +3,7 @@ import md5 from "crypto-js/md5";
 import { useEffect, useState, useRef, useCallback } from "react";
 
 import Header from "./components/Header";
+import Breadcrumbs from "./components/Breadcrumbs";
 import Cards from "./components/Cards";
 
 function App() {
@@ -74,6 +75,7 @@ function App() {
 	return (
 		<div className="App">
 			<Header formats={formats} setSelectedFormat={setSelectedFormat} />
+			<Breadcrumbs selectedFormat={selectedFormat} />
 			<Cards
 				data={data}
 				selectedFormat={selectedFormat}
