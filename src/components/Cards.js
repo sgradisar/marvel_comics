@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Card from "./Card";
 import "./Cards.css";
 
@@ -9,6 +9,16 @@ const Cards = ({
 	setSelectedItem,
 	setIsModalOpen,
 }) => {
+	const [exchangeRate, setExchangeRate] = useState(null);
+
+	useEffect(() => {
+		fetch(
+			"https://v6.exchangerate-api.com/v6/3024c009143cea84a65ea442/latest/USD"
+		)
+			.then((response) => response.json())
+			.then((data) => setExchangeRate(data.conversion_rates.EUR));
+	}, []);
+
 	return (
 		<div className="cards">
 			<div className="cards--container">
@@ -25,6 +35,7 @@ const Cards = ({
 							lastItemObserver={lastItemObserver}
 							setSelectedItem={setSelectedItem}
 							setIsModalOpen={setIsModalOpen}
+							exchangeRate={exchangeRate}
 						/>
 					))}
 			</div>

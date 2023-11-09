@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import "./Card.css";
 
 const Card = ({
@@ -8,17 +8,8 @@ const Card = ({
 	dataLength,
 	setSelectedItem,
 	setIsModalOpen,
+	exchangeRate,
 }) => {
-	const [exchangeRate, setExchangeRate] = useState(null);
-
-	useEffect(() => {
-		fetch(
-			"https://v6.exchangerate-api.com/v6/3024c009143cea84a65ea442/latest/USD"
-		)
-			.then((response) => response.json())
-			.then((data) => setExchangeRate(data.conversion_rates.EUR));
-	}, []);
-
 	const priceInEuros = exchangeRate
 		? (item.prices[0]?.price * exchangeRate).toFixed(2)
 		: "Loading...";

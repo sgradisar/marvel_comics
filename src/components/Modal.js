@@ -1,15 +1,24 @@
 import React, { useEffect, useState } from "react";
 import "./Modal.css";
 
+let cachedExchangeRate = null;
+
 const Modal = ({ item, onClose }) => {
 	const [exchangeRate, setExchangeRate] = useState(null);
 
 	useEffect(() => {
-		fetch(
-			"https://v6.exchangerate-api.com/v6/3024c009143cea84a65ea442/latest/USD"
-		)
-			.then((response) => response.json())
-			.then((data) => setExchangeRate(data.conversion_rates.EUR));
+		if (cachedExchangeRate) {
+			setExchangeRate(cachedExchangeRate);
+		} else {
+			fetch(
+				"https://v6.exchangerate-api.com/v6/3024c009143cea84a65ea442/latest/USD"
+			)
+				.then((response) => response.json())
+				.then((data) => {
+					cachedExchangeRate = data.conversion_rates.EUR;
+					setExchangeRate(cachedExchangeRate);
+				});
+		}
 	}, []);
 
 	const priceInEuros = exchangeRate
