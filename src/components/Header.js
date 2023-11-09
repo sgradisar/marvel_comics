@@ -1,7 +1,7 @@
 import React from "react";
 import "./Header.css";
 
-const Header = ({ formats }) => {
+const Header = ({ formats, setSelectedFormat }) => {
 	return (
 		<header>
 			{formats.map(
@@ -11,6 +11,7 @@ const Header = ({ formats }) => {
 							key={index}
 							onClick={(event) => {
 								event.preventDefault();
+								setSelectedFormat(format);
 							}}
 						>
 							{format}
