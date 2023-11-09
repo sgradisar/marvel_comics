@@ -5,6 +5,7 @@ import { useEffect, useState, useRef, useCallback } from "react";
 import Header from "./components/Header";
 import Breadcrumbs from "./components/Breadcrumbs";
 import Cards from "./components/Cards";
+import Modal from "./components/Modal";
 
 function App() {
 	const publicKey = process.env.REACT_APP_PUBLIC_KEY;
@@ -14,6 +15,8 @@ function App() {
 	const [selectedFormat, setSelectedFormat] = useState("All");
 	const [itemsToShow, setItemsToShow] = useState(20);
 	const lastItemRef = useRef(null);
+	const [selectedItem, setSelectedItem] = useState(null);
+	const [isModalOpen, setIsModalOpen] = useState(false);
 
 	useEffect(() => {
 		const timestamp = Number(new Date());
@@ -80,7 +83,13 @@ function App() {
 				data={data}
 				selectedFormat={selectedFormat}
 				lastItemObserver={lastItemObserver}
+				setSelectedItem={setSelectedItem}
+				setIsModalOpen={setIsModalOpen}
 			/>
+
+			{isModalOpen && (
+				<Modal item={selectedItem} onClose={() => setIsModalOpen(false)} />
+			)}
 		</div>
 	);
 }
