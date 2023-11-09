@@ -2,6 +2,7 @@ import axios from "axios";
 import md5 from "crypto-js/md5";
 import { useEffect, useState, useRef, useCallback } from "react";
 
+import "./Loader.css";
 import Header from "./components/Header";
 import Breadcrumbs from "./components/Breadcrumbs";
 import Cards from "./components/Cards";
@@ -17,6 +18,7 @@ function App() {
 	const lastItemRef = useRef(null);
 	const [selectedItem, setSelectedItem] = useState(null);
 	const [isModalOpen, setIsModalOpen] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
 		const timestamp = Number(new Date());
@@ -40,6 +42,7 @@ function App() {
 	}, [publicKey, privateKey]);
 
 	const fetchData = useCallback(() => {
+		setIsLoading(true);
 		const timestamp = Number(new Date());
 		const hash = md5(timestamp + privateKey + publicKey).toString();
 		const url = `https://gateway.marvel.com/v1/public/comics?ts=${timestamp}&apikey=${publicKey}&hash=${hash}&limit=20&offset=${itemsToShow}`;
@@ -48,15 +51,18 @@ function App() {
 			.get(url)
 			.then((response) => {
 				setData((prevData) => [...prevData, ...response.data.data.results]);
-				const uniqueFormats = [
-					"All",
-					...new Set(response.data.data.results.map((item) => item.format)),
-				];
-				setFormats(uniqueFormats);
+				const newFormats = response.data.data.results.map(
+					(item) => item.format
+				);
+				setFormats((prevFormats) =>
+					Array.from(new Set([...prevFormats, ...newFormats]))
+				);
 				setItemsToShow((prevItemsToShow) => prevItemsToShow + 20);
+				setIsLoading(false);
 			})
 			.catch((error) => {
 				console.error(error);
+				setIsLoading(false);
 			});
 	}, [itemsToShow, publicKey, privateKey]);
 
@@ -89,6 +95,13 @@ function App() {
 
 			{isModalOpen && (
 				<Modal item={selectedItem} onClose={() => setIsModalOpen(false)} />
+			)}
+
+			{isLoading && (
+				<div className="loader">
+					<div className="spinner"></div>
+					<span className="text">Loading ...</span>
+				</div>
 			)}
 		</div>
 	);

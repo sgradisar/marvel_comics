@@ -1,0 +1,43 @@
+.loader {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background: rgba(0, 0, 0, 0.5);
+}
+
+.spinner {
+	border: 1rem solid #f3f3f3;
+	border-top: 1rem solid #dd2c2c;
+	border-radius: 50%;
+	width: 7.5rem;
+	height: 7.5rem;
+	animation: spin 2s linear infinite;
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.loader .text {
+	position: absolute;
+	display: block;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+
+	font-size: 1rem;
+	line-height: 1.25;
+	font-weight: 700;
+	color: #ffffff;
+}
+
+@keyframes spin {
+	0% {
+		transform: translate(-50%, -50%) rotate(0deg);
+	}
+	100% {
+		transform: translate(-50%, -50%) rotate(360deg);
+	}
+}
