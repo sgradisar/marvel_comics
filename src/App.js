@@ -19,6 +19,7 @@ function App() {
 	const [selectedItem, setSelectedItem] = useState(null);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
+	const [isInitLoading, setIsInitLoading] = useState(false);
 
 	// initial data fetching
 	useEffect(() => {
@@ -26,6 +27,8 @@ function App() {
 		const hash = md5(timestamp + privateKey + publicKey).toString();
 
 		const url = `https://gateway.marvel.com/v1/public/comics?ts=${timestamp}&apikey=${publicKey}&hash=${hash}&limit=24`;
+
+		setIsInitLoading(true);
 
 		axios
 			.get(url)
@@ -36,9 +39,11 @@ function App() {
 					...new Set(response.data.data.results.map((item) => item.format)),
 				];
 				setFormats(uniqueFormats);
+				setIsInitLoading(false);
 			})
 			.catch((error) => {
 				console.error(error);
+				setIsInitLoading(false);
 			});
 	}, [publicKey, privateKey]);
 
@@ -95,6 +100,13 @@ function App() {
 
 	return (
 		<div className="App">
+			{isInitLoading && (
+				<div className="init-loader">
+					<div className="init-spinner"></div>
+					<span className="init-text">Loading ...</span>
+				</div>
+			)}
+
 			<Header formats={formats} setSelectedFormat={setSelectedFormat} />
 			<Breadcrumbs selectedFormat={selectedFormat} />
 			<Cards
@@ -112,7 +124,7 @@ function App() {
 			{isLoading && (
 				<div className="loader">
 					<div className="spinner"></div>
-					<span className="text">Loading ...</span>
+					<span className="text">Loading more ...</span>
 				</div>
 			)}
 		</div>
