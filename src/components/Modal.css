@@ -1,5 +1,6 @@
 .modal {
 	position: fixed;
+	z-index: 20;
 	top: 0;
 	bottom: 0;
 	left: 0;
@@ -17,13 +18,15 @@
 	transform: translate(-50%, -50%);
 
 	display: flex;
+	flex-wrap: wrap;
 	padding: 0.75rem;
 	box-sizing: border-box;
 
 	border: 1px solid #1d1d1d;
 	border-radius: 5px;
 
-	width: 40rem;
+	width: 90%;
+	max-width: 40rem;
 	background-color: #fff;
 }
 
@@ -153,4 +156,38 @@
 	background-repeat: no-repeat;
 	background-position: center center;
 	background-size: 0.875rem 0.875rem;
+}
+
+@media (max-width: 640px) {
+	.modal .image {
+		flex: 0 0 100%;
+		width: 100%;
+		height: auto;
+		margin-bottom: 0.5rem;
+	}
+
+	.modal .image--container {
+		padding-bottom: 56.25%;
+	}
+
+	.modal .content {
+		flex: 0 0 100%;
+		width: 100%;
+		padding-left: 0;
+	}
+
+	.modal .description {
+		margin-bottom: 1rem;
+	}
+
+	.modal .close-x {
+		top: -3rem;
+		left: 50%;
+		transform: translate(-50%, 0);
+		width: 2rem;
+		height: 2rem;
+
+		background-color: #fff;
+		border-radius: 50%;
+	}
 }

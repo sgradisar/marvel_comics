@@ -14,17 +14,18 @@ function App() {
 	const [formats, setFormats] = useState([]);
 	const [data, setData] = useState(null);
 	const [selectedFormat, setSelectedFormat] = useState("All");
-	const [itemsToShow, setItemsToShow] = useState(20);
+	const [itemsToShow, setItemsToShow] = useState(24);
 	const lastItemRef = useRef(null);
 	const [selectedItem, setSelectedItem] = useState(null);
 	const [isModalOpen, setIsModalOpen] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 
+	// initial data fetching
 	useEffect(() => {
 		const timestamp = Number(new Date());
 		const hash = md5(timestamp + privateKey + publicKey).toString();
 
-		const url = `https://gateway.marvel.com/v1/public/comics?ts=${timestamp}&apikey=${publicKey}&hash=${hash}&limit=20`;
+		const url = `https://gateway.marvel.com/v1/public/comics?ts=${timestamp}&apikey=${publicKey}&hash=${hash}&limit=24`;
 
 		axios
 			.get(url)
@@ -43,12 +44,13 @@ function App() {
 
 	const [isFetching, setIsFetching] = useState(false);
 
+	// we are fetching data only when the user scrolls to the bottom of the page
 	const fetchData = useCallback(() => {
 		setIsFetching(true);
 		setIsLoading(true);
 		const timestamp = Number(new Date());
 		const hash = md5(timestamp + privateKey + publicKey).toString();
-		const url = `https://gateway.marvel.com/v1/public/comics?ts=${timestamp}&apikey=${publicKey}&hash=${hash}&limit=20&offset=${itemsToShow}`;
+		const url = `https://gateway.marvel.com/v1/public/comics?ts=${timestamp}&apikey=${publicKey}&hash=${hash}&limit=24&offset=${itemsToShow}`;
 
 		axios
 			.get(url)
@@ -74,13 +76,14 @@ function App() {
 			});
 	}, [itemsToShow, publicKey, privateKey]);
 
+	// we are observing the last item in the list to fetch more data when the user scrolls to the bottom of the page
 	const lastItemObserver = useCallback(
 		(node) => {
 			if (lastItemRef.current) lastItemRef.current.disconnect();
 
 			lastItemRef.current = new IntersectionObserver((entries) => {
 				if (entries[0].isIntersecting && !isLoading && !isFetching) {
-					setItemsToShow((prevItemsToShow) => prevItemsToShow + 20);
+					setItemsToShow((prevItemsToShow) => prevItemsToShow + 24);
 					fetchData();
 				}
 			});

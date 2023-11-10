@@ -19,6 +19,7 @@ const Card = ({
 	const [hasAnimated, setHasAnimated] = useState(false);
 	const cardRef = useRef(null);
 
+	// we are animating the cards when they are in the viewport
 	useEffect(() => {
 		const currentRef = cardRef.current;
 		const observer = new IntersectionObserver(
@@ -49,6 +50,7 @@ const Card = ({
 		};
 	}, [hasAnimated]);
 
+	// we are observing the last item in the list to fetch more data when the user scrolls to the bottom of the page
 	useEffect(() => {
 		if (index === dataLength - 1 && !isLoading) {
 			lastItemObserver(cardRef.current);

@@ -31,6 +31,7 @@ header .logo img {
 
 header .filters {
 	display: flex;
+	box-sizing: border-box;
 }
 
 header .btn-filter {
@@ -59,4 +60,151 @@ header .btn-filter:first-child {
 header .btn-filter.active,
 header .btn-filter:hover {
 	color: #dd2c2c;
+}
+
+header .btn-hamburger {
+	display: none;
+}
+
+@media (max-width: 1400px) {
+	header .logo {
+		flex: 0 0 4.5rem;
+		width: 4.5rem;
+	}
+
+	header .btn-filter {
+		font-size: 1rem;
+		margin-left: 3rem;
+	}
+
+	header .btn-filter:first-child {
+		margin-left: 2rem;
+	}
+}
+
+@media (max-width: 1200px) {
+	header .logo {
+		flex: 0 0 3.5rem;
+		width: 3.5rem;
+	}
+
+	header .btn-filter {
+		font-size: 1rem;
+		margin-left: 2rem;
+	}
+
+	header .btn-filter:first-child {
+		margin-left: 1.5rem;
+	}
+}
+
+@media (max-width: 992px) {
+	header .header--container {
+		padding: 0.75rem 1.5rem;
+	}
+
+	header .logo {
+		flex: 0 0 3.75rem;
+		width: 3.75rem;
+	}
+
+	header .filters {
+		position: absolute;
+		top: calc(100% - 1.25rem);
+		left: 0;
+		right: 0;
+		flex-direction: column;
+		align-items: center;
+		height: 0;
+		overflow: hidden;
+
+		background-color: #000000;
+		padding-bottom: 1.25rem;
+	}
+
+	header .btn-filter {
+		margin-left: 0;
+		margin-bottom: 0.25rem;
+
+		opacity: 0;
+	}
+
+	header .btn-filter:first-child {
+		margin-left: 0;
+	}
+
+	header .btn-hamburger {
+		display: block;
+		margin-left: auto;
+		width: 1.25rem;
+		height: 1.25rem;
+		position: relative;
+		cursor: pointer;
+
+		appearance: none;
+		border: 0;
+		background-color: transparent;
+	}
+
+	header .btn-hamburger span {
+		display: block;
+		width: 100%;
+		height: 0.125rem;
+		background-color: #ffffff;
+		position: absolute;
+		top: 50%;
+		left: 0;
+		transform: translateY(-50%);
+		transition: background-color 0.2s ease-in-out;
+	}
+
+	header .btn-hamburger span::before {
+		content: "";
+		position: absolute;
+		display: block;
+		width: 100%;
+		height: 0.125rem;
+		background-color: #ffffff;
+		top: -0.5rem;
+		left: 0;
+		transform: translateY(-50%);
+		transition: transform 0.2s ease-in-out, top 0.2s ease-in-out;
+	}
+
+	header .btn-hamburger span::after {
+		content: "";
+		position: absolute;
+		display: block;
+		width: 100%;
+		height: 0.125rem;
+		background-color: #ffffff;
+		top: 0.5rem;
+		left: 0;
+		transform: translateY(50%);
+		transition: transform 0.2s ease-in-out, top 0.2s ease-in-out;
+	}
+
+	header .btn-hamburger.active span {
+		background-color: transparent;
+	}
+
+	header .btn-hamburger.active span::before {
+		top: 50%;
+		left: 0;
+		transform: translateY(-50%) rotate(45deg);
+	}
+
+	header .btn-hamburger.active span::after {
+		top: 50%;
+		left: 0;
+		transform: translateY(-50%) rotate(-45deg);
+	}
+}
+
+@media (max-width: 640px) {
+	header .logo {
+		flex: 0 0 3.5rem;
+		width: 3.5rem;
+		cursor: pointer;
+	}
 }
