@@ -1,0 +1,24 @@
+.breadcrumbs {
+	width: 100%;
+	max-width: 1444px;
+	margin: 9rem auto 0 auto;
+	padding: 0 1.5rem;
+	box-sizing: border-box;
+
+	display: flex;
+	align-items: center;
+}
+
+.breadcrumbs .breadcrumb--container {
+	display: flex;
+	align-items: center;
+}
+
+.breadcrumbs span {
+	font-size: 1.125rem;
+	line-height: 1.25;
+	font-weight: 700;
+	color: #828282;
+
+	margin-right: 0.5rem;
+}
