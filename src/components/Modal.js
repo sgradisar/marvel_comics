@@ -37,7 +37,11 @@ const Modal = ({ item, onClose }) => {
 				<div className="image">
 					<div className="image--container">
 						<img
-							src={item.thumbnail.path + "." + item.thumbnail.extension}
+							src={
+								item.thumbnail.path +
+								"/portrait_fantastic." +
+								item.thumbnail.extension
+							}
 							alt={item.title}
 						/>
 					</div>

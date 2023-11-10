@@ -67,7 +67,11 @@ const Card = ({
 				<div className="image">
 					<div className="image--container">
 						<img
-							src={item.thumbnail.path + "." + item.thumbnail.extension}
+							src={
+								item.thumbnail.path +
+								"/portrait_medium." +
+								item.thumbnail.extension
+							}
 							alt={item.title}
 						/>
 					</div>
