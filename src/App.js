@@ -9,8 +9,11 @@ import Cards from "./components/Cards";
 import Modal from "./components/Modal";
 
 function App() {
-	const publicKey = process.env.REACT_APP_PUBLIC_KEY;
-	const privateKey = process.env.REACT_APP_PRIVATE_KEY;
+	//const publicKey = process.env.REACT_APP_PUBLIC_KEY;
+	//const privateKey = process.env.REACT_APP_PRIVATE_KEY;
+
+	const publicKey = "2cf650c7b6f61d7308a26794007ceb83";
+	const privateKey = "a7ffa074937010ac54e75ac555fb253859da40ce";
 	const [formats, setFormats] = useState([]);
 	const [data, setData] = useState(null);
 	const [selectedFormat, setSelectedFormat] = useState("All");
