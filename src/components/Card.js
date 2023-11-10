@@ -12,8 +12,10 @@ const Card = ({
 	exchangeRate,
 	isLoading,
 }) => {
+	const prices = item.prices.map((price) => price.price);
+	const cheapestPrice = Math.min(...prices);
 	const priceInEuros = exchangeRate
-		? (item.prices[0]?.price * exchangeRate).toFixed(2)
+		? (cheapestPrice * exchangeRate).toFixed(2)
 		: "Loading...";
 
 	const [hasAnimated, setHasAnimated] = useState(false);

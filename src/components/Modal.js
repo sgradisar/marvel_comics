@@ -39,15 +39,37 @@ const Modal = ({ item, onClose }) => {
 		return () => window.removeEventListener("resize", handleResize);
 	}, []);
 
+	useEffect(() => {
+		// we prevent scrolling by setting the body overflow to hidden
+		document.body.style.overflow = "hidden";
+
+		return () => {
+			document.body.style.overflow = "auto";
+		};
+	}, []);
+
+	const prices = item.prices.map((price) => price.price);
+	const cheapestPrice = Math.min(...prices);
 	const priceInEuros = exchangeRate
-		? (item.prices[0]?.price * exchangeRate).toFixed(2)
+		? (cheapestPrice * exchangeRate).toFixed(2)
 		: "Loading...";
 
 	// we are extracting relaease year from the title because api doesn't provide it as "onsaleDate" doesnt make sense
 	// because it is not the release date of the comic (for example comic has year 2010 in the title, but year 2029 in the onsaleDate).
 	// focDate is also completely wrong ("-0001-11-30T00:00:00-0500")
 	const match = item.title.match(/\((\d{4})\)/);
-	const releaseYear = match ? match[1] : "Not specified";
+	const releaseYearTitle = match ? match[1] : "Not specified";
+
+	// first we try to get the valid year freom focDate
+	const focDateObject = item.dates.find((date) => date.type === "focDate");
+	let releaseYear = focDateObject
+		? new Date(focDateObject.date).getFullYear()
+		: "Not specified";
+
+	// we check if releaseYear is NaN and we set it to releaseYearTitle
+	if (isNaN(releaseYear)) {
+		releaseYear = releaseYearTitle;
+	}
 
 	// we are closing the modal when the user presses the "esc" key
 	useEffect(() => {
