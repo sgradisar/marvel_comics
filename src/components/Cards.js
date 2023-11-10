@@ -11,6 +11,7 @@ const Cards = ({
 }) => {
 	const [exchangeRate, setExchangeRate] = useState(null);
 
+	// we are fetching exchange rate only once
 	useEffect(() => {
 		fetch(
 			"https://v6.exchangerate-api.com/v6/3024c009143cea84a65ea442/latest/USD"

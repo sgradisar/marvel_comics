@@ -1,7 +1,9 @@
 .cards {
 	width: 100%;
-	max-width: 1404px;
+	max-width: 1444px;
 	margin: 1.25rem auto 0 auto;
+	padding: 0 1.25rem;
+	box-sizing: border-box;
 }
 
 .cards--container {

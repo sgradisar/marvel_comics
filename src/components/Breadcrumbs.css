@@ -22,3 +22,21 @@
 
 	margin-right: 0.5rem;
 }
+
+@media (max-width: 1400px) {
+	.breadcrumbs {
+		margin: 8.125rem auto 0 auto;
+	}
+}
+
+@media (max-width: 1200px) {
+	.breadcrumbs {
+		margin: 7.5rem auto 0 auto;
+	}
+}
+
+@media (max-width: 640px) {
+	.breadcrumbs {
+		margin: 6.125rem auto 0 auto;
+	}
+}
