@@ -41,7 +41,10 @@ function App() {
 			});
 	}, [publicKey, privateKey]);
 
+	const [isFetching, setIsFetching] = useState(false);
+
 	const fetchData = useCallback(() => {
+		setIsFetching(true);
 		setIsLoading(true);
 		const timestamp = Number(new Date());
 		const hash = md5(timestamp + privateKey + publicKey).toString();
@@ -57,12 +60,17 @@ function App() {
 				setFormats((prevFormats) =>
 					Array.from(new Set([...prevFormats, ...newFormats]))
 				);
-				setItemsToShow((prevItemsToShow) => prevItemsToShow + 20);
+				setItemsToShow(
+					(prevItemsToShow) =>
+						prevItemsToShow + response.data.data.results.length
+				);
 				setIsLoading(false);
+				setIsFetching(false);
 			})
 			.catch((error) => {
 				console.error(error);
 				setIsLoading(false);
+				setIsFetching(false);
 			});
 	}, [itemsToShow, publicKey, privateKey]);
 
@@ -71,14 +79,15 @@ function App() {
 			if (lastItemRef.current) lastItemRef.current.disconnect();
 
 			lastItemRef.current = new IntersectionObserver((entries) => {
-				if (entries[0].isIntersecting) {
+				if (entries[0].isIntersecting && !isLoading && !isFetching) {
+					setItemsToShow((prevItemsToShow) => prevItemsToShow + 20);
 					fetchData();
 				}
 			});
 
 			if (node) lastItemRef.current.observe(node);
 		},
-		[fetchData]
+		[fetchData, isLoading, isFetching]
 	);
 
 	return (
