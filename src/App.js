@@ -1,6 +1,5 @@
-import axios from "axios";
-import md5 from "crypto-js/md5";
 import { useEffect, useState, useRef, useCallback } from "react";
+import { fetchData as fetchInitialData, fetchMoreData } from "./services";
 
 import "./Loader.css";
 import Header from "./components/Header";
@@ -26,15 +25,9 @@ function App() {
 
 	// initial data fetching
 	useEffect(() => {
-		const timestamp = Number(new Date());
-		const hash = md5(timestamp + privateKey + publicKey).toString();
-
-		const url = `https://gateway.marvel.com/v1/public/comics?ts=${timestamp}&apikey=${publicKey}&hash=${hash}&limit=24`;
-
 		setIsInitLoading(true);
 
-		axios
-			.get(url)
+		fetchInitialData(publicKey, privateKey)
 			.then((response) => {
 				setData(response.data.data.results);
 				const uniqueFormats = [
@@ -56,12 +49,8 @@ function App() {
 	const fetchData = useCallback(() => {
 		setIsFetching(true);
 		setIsLoading(true);
-		const timestamp = Number(new Date());
-		const hash = md5(timestamp + privateKey + publicKey).toString();
-		const url = `https://gateway.marvel.com/v1/public/comics?ts=${timestamp}&apikey=${publicKey}&hash=${hash}&limit=24&offset=${itemsToShow}`;
 
-		axios
-			.get(url)
+		fetchMoreData(publicKey, privateKey, itemsToShow)
 			.then((response) => {
 				setData((prevData) => [...prevData, ...response.data.data.results]);
 				const newFormats = response.data.data.results.map(

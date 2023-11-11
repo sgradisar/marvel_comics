@@ -1,6 +1,9 @@
 import React, { useEffect, useState } from "react";
+import { fetchExchangeRate } from "../services";
 import Card from "./Card";
 import "./Cards.css";
+
+let cachedExchangeRate = null;
 
 const Cards = ({
 	data,
@@ -11,13 +14,16 @@ const Cards = ({
 }) => {
 	const [exchangeRate, setExchangeRate] = useState(null);
 
-	// we are fetching exchange rate only once
+	// we are fetching exchange rate using fetchExchangeRate function from services.js
 	useEffect(() => {
-		fetch(
-			"https://v6.exchangerate-api.com/v6/3024c009143cea84a65ea442/latest/USD"
-		)
-			.then((response) => response.json())
-			.then((data) => setExchangeRate(data.conversion_rates.EUR));
+		if (cachedExchangeRate) {
+			setExchangeRate(cachedExchangeRate);
+		} else {
+			fetchExchangeRate().then((data) => {
+				cachedExchangeRate = data.conversion_rates.EUR;
+				setExchangeRate(cachedExchangeRate);
+			});
+		}
 	}, []);
 
 	return (
