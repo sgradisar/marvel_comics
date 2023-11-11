@@ -8,9 +8,6 @@
 	background-color: rgba(0, 0, 0, 0.5);
 }
 
-.modal.open {
-}
-
 .modal--container {
 	position: absolute;
 	top: 50%;
@@ -82,7 +79,7 @@
 }
 
 .modal .description {
-	margin-bottom: 0.5rem;
+	margin-bottom: 1rem;
 }
 
 .modal .description p {
@@ -174,10 +171,6 @@
 		flex: 0 0 100%;
 		width: 100%;
 		padding-left: 0;
-	}
-
-	.modal .description {
-		margin-bottom: 1rem;
 	}
 
 	.modal .close-x {
