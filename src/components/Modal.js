@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { fetchExchangeRate } from "../services";
 import "./Modal.css";
 
 let cachedExchangeRate = null;
@@ -9,19 +10,15 @@ const Modal = ({ item, onClose }) => {
 		window.innerWidth < 640 ? "/landscape_incredible." : "/portrait_fantastic."
 	);
 
-	// we are fetching exchange rate only once
+	// we are fetching exchange rate using fetchExchangeRate function from services.js
 	useEffect(() => {
 		if (cachedExchangeRate) {
 			setExchangeRate(cachedExchangeRate);
 		} else {
-			fetch(
-				"https://v6.exchangerate-api.com/v6/3024c009143cea84a65ea442/latest/USD"
-			)
-				.then((response) => response.json())
-				.then((data) => {
-					cachedExchangeRate = data.conversion_rates.EUR;
-					setExchangeRate(cachedExchangeRate);
-				});
+			fetchExchangeRate().then((data) => {
+				cachedExchangeRate = data.conversion_rates.EUR;
+				setExchangeRate(cachedExchangeRate);
+			});
 		}
 	}, []);
 
@@ -117,7 +114,12 @@ const Modal = ({ item, onClose }) => {
 								<p>
 									<strong>Pages:</strong> {item.pageCount}
 								</p>
-							) : null}
+							) : (
+								<p>
+									<strong>Pages:</strong> <i>Page count not specified</i>
+								</p>
+							)}
+
 							{item.characters.items.length > 0 ? (
 								// we are showing only first 3 characters
 								<p>
@@ -128,7 +130,11 @@ const Modal = ({ item, onClose }) => {
 										.join(", ")}
 									{item.characters.items.length > 3 ? " ..." : ""}
 								</p>
-							) : null}
+							) : (
+								<p>
+									<strong>Characters:</strong> <i>Characters not specified</i>
+								</p>
+							)}
 							{item.creators.items.length > 0 ? (
 								// we are showing only first 3 characters
 								<p>
@@ -139,12 +145,21 @@ const Modal = ({ item, onClose }) => {
 										.join(", ")}
 									{item.creators.items.length > 3 ? " ..." : ""}
 								</p>
-							) : null}
+							) : (
+								<p>
+									<strong>Creators:</strong> <i>Creators not specified</i>
+								</p>
+							)}
 							{item.diamondCode ? (
 								<p>
 									<strong>Diamond Code:</strong> {item.diamondCode}
 								</p>
-							) : null}
+							) : (
+								<p>
+									<strong>Diamond code:</strong>{" "}
+									<i>Diamond code not specified</i>
+								</p>
+							)}
 						</div>
 						<div className="options">
 							<span className="price">{priceInEuros} €</span>
