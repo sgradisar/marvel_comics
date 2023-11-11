@@ -38,10 +38,16 @@ const Modal = ({ item, onClose }) => {
 
 	useEffect(() => {
 		// we prevent scrolling by setting the body overflow to hidden
+		// and we are adding padding to the body to prevent the
+		// content in the background from jumping when overflow is hidden :)
+		const scrollbarWidth =
+			window.innerWidth - document.documentElement.clientWidth;
 		document.body.style.overflow = "hidden";
+		document.body.style.paddingRight = `${scrollbarWidth}px`;
 
 		return () => {
 			document.body.style.overflow = "auto";
+			document.body.style.paddingRight = "0px";
 		};
 	}, []);
 
@@ -51,13 +57,13 @@ const Modal = ({ item, onClose }) => {
 		? (cheapestPrice * exchangeRate).toFixed(2)
 		: "Loading...";
 
-	// we are extracting relaease year from the title because api doesn't provide it as "onsaleDate" doesnt make sense
+	// we are extracting release year from the title because api doesn't provide it as "onsaleDate" doesnt make sense
 	// because it is not the release date of the comic (for example comic has year 2010 in the title, but year 2029 in the onsaleDate).
 	// focDate is also completely wrong ("-0001-11-30T00:00:00-0500")
 	const match = item.title.match(/\((\d{4})\)/);
 	const releaseYearTitle = match ? match[1] : "Not specified";
 
-	// first we try to get the valid year freom focDate
+	// first we try to get the valid year from focDate
 	const focDateObject = item.dates.find((date) => date.type === "focDate");
 	let releaseYear = focDateObject
 		? new Date(focDateObject.date).getFullYear()
@@ -102,7 +108,6 @@ const Modal = ({ item, onClose }) => {
 				<div className="content">
 					<div className="content--container">
 						<h2>{item.title}</h2>
-
 						<div className="description">
 							<p>
 								<strong>Year of release:</strong> {releaseYear}

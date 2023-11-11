@@ -8,9 +8,6 @@
 	background-color: rgba(0, 0, 0, 0.5);
 }
 
-.modal.open {
-}
-
 .modal--container {
 	position: absolute;
 	top: 50%;
