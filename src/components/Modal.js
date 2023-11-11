@@ -42,12 +42,15 @@ const Modal = ({ item, onClose }) => {
 		// content in the background from jumping when overflow is hidden :)
 		const scrollbarWidth =
 			window.innerWidth - document.documentElement.clientWidth;
+		const header = document.querySelector(".header");
 		document.body.style.overflow = "hidden";
 		document.body.style.paddingRight = `${scrollbarWidth}px`;
+		header.style.paddingRight = `${scrollbarWidth}px`;
 
 		return () => {
 			document.body.style.overflow = "auto";
 			document.body.style.paddingRight = "0px";
+			header.style.paddingRight = "0px";
 		};
 	}, []);
 
