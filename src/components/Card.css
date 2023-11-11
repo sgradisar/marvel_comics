@@ -4,6 +4,8 @@
 	padding: 0 0.625rem;
 	box-sizing: border-box;
 	margin-bottom: 1.25rem;
+	opacity: 0;
+	transform: scale(0.8);
 }
 
 .card--container {

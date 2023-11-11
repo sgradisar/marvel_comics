@@ -28,9 +28,9 @@ const Card = ({
 			(entries) => {
 				entries.forEach((entry) => {
 					if (entry.isIntersecting && !hasAnimated) {
-						gsap.from(currentRef, {
-							autoAlpha: 0,
-							scale: 0.8,
+						gsap.to(currentRef, {
+							autoAlpha: 1,
+							scale: 1,
 							ease: "power3.out",
 							duration: 1,
 						});
