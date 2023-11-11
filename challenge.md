@@ -16,4 +16,5 @@ To set up the project, follow these steps:
 
 ### Issues faced during the implementation:
 
+- Implemention of the filters was a slight challenge as "formats" of the Comics are only being fetched every time I make a call to the API and Marvel API does not provide an option to call all the available filters for the comics in advance. I got around this by adding filter options "as they fetch".
 - I constantly got some duplicate items in api calls when setting limit to 20 items and offsetting by 20. I later figured out that this must be some sort of api issue as the problem persisted in Marvel API testing tool (when setting limit to 20/24/30 and offsetting by 20/24/30). Things are working fine when setting limit to 40 and offsetting by 40. After consulting, I first left left it at 20/20, but later changed to 24/24 because this is dividable by 4/3/2 (responsive layout).
