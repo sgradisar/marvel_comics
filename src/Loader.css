@@ -1,21 +1,18 @@
 .loader {
-	position: fixed;
+	position: relative;
 	z-index: 30;
-	top: 0;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	background: rgba(0, 0, 0, 0.5);
+	padding: 6rem 0;
+	box-sizing: border-box;
 }
 
 .spinner {
 	border: 1rem solid #f3f3f3;
 	border-top: 1rem solid #dd2c2c;
 	border-radius: 50%;
-	width: 7.5rem;
-	height: 7.5rem;
+	width: 6rem;
+	height: 6rem;
 	animation: spin 2s linear infinite;
-	position: fixed;
+	position: absolute;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
@@ -28,10 +25,10 @@
 	left: 50%;
 	transform: translate(-50%, -50%);
 
-	font-size: 0.75rem;
+	font-size: 0.625rem;
 	line-height: 1.25;
 	font-weight: 700;
-	color: #ffffff;
+	color: #000;
 }
 
 @keyframes spin {
