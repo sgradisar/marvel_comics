@@ -5,6 +5,7 @@ import "./Header.css";
 const Header = ({ formats, setSelectedFormat }) => {
 	const [activeFormat, setActiveFormat] = useState("All");
 	const [isActive, setIsActive] = useState(false);
+	const [isScrolled, setIsScrolled] = useState(false);
 
 	// function to handle click events on the format buttons
 	const handleClick = (event, format) => {
@@ -122,8 +123,21 @@ const Header = ({ formats, setSelectedFormat }) => {
 		}
 	}, [formats, isActive]);
 
+	useEffect(() => {
+		const handleScroll = () => {
+			const isScrolled = window.scrollY > 50;
+			setIsScrolled(isScrolled);
+		};
+
+		window.addEventListener("scroll", handleScroll);
+
+		return () => {
+			window.removeEventListener("scroll", handleScroll);
+		};
+	}, []);
+
 	return (
-		<header className="header">
+		<header className={`header ${isScrolled ? "scrolled" : ""}`}>
 			<div className="header--container">
 				<div className="logo" onClick={resetFilter}>
 					<div className="logo--container">

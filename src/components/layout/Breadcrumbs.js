@@ -7,7 +7,7 @@ const Breadcrumbs = ({ selectedFormat }) => {
 			<div className="breadcrumbs--container">
 				<span className="bc-main">Home</span>
 				{selectedFormat !== "All" && (
-					<span className="bc-item">{"> " + selectedFormat + "s"}</span>
+					<span className="bc-item">{`> ${selectedFormat}s`}</span>
 				)}
 			</div>
 		</div>

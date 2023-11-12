@@ -1,10 +1,13 @@
 import { useEffect, useState, useRef, useCallback } from "react";
-import { fetchData as fetchInitialData, fetchMoreData } from "../services";
-import "../Loader.css";
-import Header from "./Header";
-import Breadcrumbs from "./Breadcrumbs";
-import Cards from "./Cards";
-import Modal from "./Modal";
+import {
+	fetchData as fetchInitialData,
+	fetchMoreData,
+} from "../../services/services";
+import "./Loader.css";
+import Header from "../layout/Header";
+import Breadcrumbs from "../layout/Breadcrumbs";
+import Cards from "../cards/Cards";
+import Modal from "../layout/Modal";
 
 const Home = () => {
 	//const publicKey = process.env.REACT_APP_PUBLIC_KEY;

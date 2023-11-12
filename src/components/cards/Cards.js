@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { fetchExchangeRate } from "../services";
+import { fetchExchangeRate } from "../../services/services";
 import Card from "./Card";
 import "./Cards.css";
 
